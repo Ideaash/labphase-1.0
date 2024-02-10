@@ -11,25 +11,5 @@ pipeline {
                 }
             }
         }
-        
-        stage('Build') {
-            steps {
-                script {
-                    sh 'docker build -t solash25/first-app-test .'
-                }
-            }
-        }
-        
-        stage('Push to Docker Hub') {
-            steps {
-                // Authentification Docker Hub
-                withDockerRegistry([credentialsId: 'DOCKER_HUB_ACCESS_JENKINS', url: 'https://index.docker.io/v1/']) {
-                    // Pousser l'image vers Docker Hub
-                    script {
-                        docker.image('solash25').push('latest')
-                    }
-                }
-            }
-        }
     }
 }
