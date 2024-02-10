@@ -9,6 +9,9 @@ pipeline {
                     credentialsId: 'Access_Github_Jenkins',
                     url: 'https://github.com/Ideaash/labphase-1.0.git'
                 }
+                script {
+                    echo "bonjou"
+                }
             }
         }
     }
