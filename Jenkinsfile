@@ -45,7 +45,7 @@ pipeline {
             steps {
                 script {
                     // Deploy image to Kind cluster
-                    sh 'kind create cluster --name cluster-Devops'
+                    sh 'kind create cluster --name cluster-devops'
                     sh 'kubectl apply -f deployment.yaml'
                     sh 'kubectl apply -f service.yaml'
                 }
