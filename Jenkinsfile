@@ -24,8 +24,8 @@ pipeline {
          stage('Build the Docker image') {
             steps {
                 script {
-                    // docker.build('solash25/first-app-test-v2')
-                     sh 'docker build -t solash25/fatmakaddem .'
+                    // docker.build('solash25/first-app-test')
+                     sh 'docker build -t solash25/first-app-test-v2 .'
                 }
             }
         }
