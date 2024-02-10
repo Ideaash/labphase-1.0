@@ -5,8 +5,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    git branch: 'ideaash',
-                    credentialsId: 'Github',
+                    git branch: 'main',
+                    credentialsId: 'Access_Github_Jenkins',
                     url: 'https://github.com/Ideaash/labphase-1.0.git'
                 }
         }
@@ -14,7 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.build('username-DockerHub/first-app-test')
+                    docker.build('solash25/first-app-test')
                 }
             }
         }
@@ -22,10 +22,10 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 // Authentification Docker Hub
-                withDockerRegistry([credentialsId: 'votre-identifiant-credentials-dockerhub', url: 'https://index.docker.io/v1/']) {
+                withDockerRegistry([credentialsId: 'DOCKER_HUB_ACCESS_JENKINS', url: 'https://index.docker.io/v1/']) {
                     // Pousser l'image vers Docker Hub
                     script {
-                        docker.image('username-DockerHub').push('latest')
+                        docker.image('solash25').push('latest')
                     }
                 }
             }
