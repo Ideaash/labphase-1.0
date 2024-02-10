@@ -21,11 +21,10 @@ pipeline {
             }
         }
 
-        stage('Docker Build and Push') {
+         stage('Build') {
             steps {
                 script {
-                    // Build and push Docker image
-                    docker.build('solash25/firestapptest').push()
+                    docker.build('solash25/first-app-test')
                 }
             }
         }
