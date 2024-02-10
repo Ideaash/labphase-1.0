@@ -4,12 +4,10 @@ pipeline {
     stages {
         stage('Setup Docker Permissions') {
             steps {
-                script {
-                    // Add Jenkins user to Docker group
-                    sh 'sudo usermod -aG docker jenkins'
-
-                    // Set Docker socket permissions for Jenkins user
-                    sh 'sudo chown jenkins:docker /var/run/docker.sock'
+                 script {
+                    // Configure Docker permissions
+                    sh 'sudo usermod -aG docker jenkins || true' // Add Jenkins to Docker group
+                    sh 'sudo chown jenkins:docker /var/run/docker.sock || true' // Set ownership of Docker socket
                 }
             }
         }
