@@ -1,25 +1,35 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Checkout') {
+        stage('Setup Docker Permissions') {
             steps {
                 script {
-                    git branch: 'main',
-                    credentialsId: 'Access_Github_Jenkins',
-                    url: 'https://github.com/Ideaash/labphase-1.0.git'
+                    // Add Jenkins user to Docker group
+                    sh 'sudo usermod -aG docker jenkins'
+
+                    // Set Docker socket permissions for Jenkins user
+                    sh 'sudo chown jenkins:docker /var/run/docker.sock'
                 }
             }
         }
 
-                stage("Docker Build and Push") {
+        stage('Checkout') {
             steps {
                 script {
-                    // Build the Docker image
-                    sh 'docker build -t solash25/firestapptest .'
+                    // Checkout the code from Git repository
+                    git branch: 'main', credentialsId: 'Access_Github_Jenkins', url: 'https://github.com/Ideaash/labphase-1.0.git'
                 }
             }
         }
-        
+
+        stage('Docker Build and Push') {
+            steps {
+                script {
+                    // Build and push Docker image
+                    docker.build('solash25/firestapptest').push()
+                }
+            }
+        }
     }
 }
