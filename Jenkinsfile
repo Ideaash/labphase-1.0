@@ -74,6 +74,14 @@ pipeline {
                 }
             }
         }
+         stage('View Pods') {
+            steps {
+                script {
+                    // View running pods
+                    sh 'kubectl get pods'
+                }
+            }
+        }
 
     }
 }
