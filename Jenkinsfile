@@ -66,5 +66,14 @@ pipeline {
                 }
             }
         }
+        stage('Scale Deployment') {
+            steps {
+                script {
+                    // Scale the deployment
+                    sh 'kubectl scale deployment nginx-deployment --replicas=3'
+                }
+            }
+        }
+
     }
 }
