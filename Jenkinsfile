@@ -41,11 +41,26 @@ pipeline {
                 }
             }
         }
+        stage('Check and Create Kind Cluster') {
+            steps {
+                script {
+                    def clusterExists = sh(script: 'kind get clusters | grep -q "cluster-devops"', returnStatus: true)
+                    if (clusterExists == 0) {
+                        echo "Cluster exists. Deleting it."
+                        sh 'kind delete cluster --name cluster-devops'
+                    } else {
+                        echo "Cluster does not exist."
+                    }
+                    echo "Creating new Kind cluster."
+                    sh 'kind create cluster --name cluster-devops'
+                }
+            }
+        }
+
         stage('Deploy to Kubernetes') {
             steps {
                 script {
                     // Deploy image to Kind cluster
-                    sh 'kind create cluster --name cluster-devops'
                     sh 'kubectl apply -f deployment.yaml'
                     sh 'kubectl apply -f services.yaml'
                 }
