@@ -21,10 +21,11 @@ pipeline {
             }
         }
 
-         stage('Build') {
+         stage('Build the Docker image') {
             steps {
                 script {
-                    docker.build('solash25/first-app-test')
+                    // docker.build('solash25/first-app-test-v2')
+                     sh 'docker build -t solash25/fatmakaddem .'
                 }
             }
         }
