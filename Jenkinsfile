@@ -82,6 +82,14 @@ pipeline {
                 }
             }
         }
+        stage('Rolling Update') {
+            steps {
+                script {
+                    // Perform rolling update
+                    sh 'kubectl set image deployment/nginx-deployment nginx=solash25/first-app-test-v2:latest'
+                }
+            }
+        }
 
     }
 }
